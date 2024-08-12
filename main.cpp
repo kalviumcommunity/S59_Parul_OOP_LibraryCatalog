@@ -4,57 +4,77 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     Library library;
 
-    Book book1("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false);
-    Book book2("You Can Sell", "Shiv Khera", "9788129116000", true);
+    Book booksArray[] = {
+        Book("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false),
+        Book("You Can Sell", "Shiv Khera", "9788129116000", true),
+        Book("Atomic Habits", "James Clear", "9780735211292", true)
+    };
 
-    library.addBook(book1);
-    library.addBook(book2);
+    for (const auto &book : booksArray) {
+        library.addBook(book);
+    }
 
     cout << "\nWelcome to the Library Catalog!" << endl;
 
-    while (true) {
+    while (true)
+    {
         cout << "\nWhat would you like to do?" << endl;
         cout << "1. Find a book by Title" << endl;
         cout << "2. Find a book by Author" << endl;
         cout << "3. Add a new book" << endl;
         cout << "4. Remove a book by ISBN" << endl;
-        cout << "5. Exit" << endl;
-        cout << "\nPlease enter your choice (1-5): ";
+        cout << "5. Check all books in the library" << endl;
+        cout << "6. Exit" << endl;
+        cout << "\nPlease enter your choice (1-6): ";
         int choice;
         cin >> choice;
 
-        if (choice == 1) {
+        if (choice == 1)
+        {
             string title;
             cout << "Enter the book title: ";
-            cin.ignore(); 
+            cin.ignore();
             getline(cin, title);
 
             vector<Book> results = library.searchByTitle(title);
-            if (results.empty()) {
+            if (results.empty())
+            {
                 cout << "No books found with the title \"" << title << "\"." << endl;
-            } else {
-                for (const auto& book : results) {
+            }
+            else
+            {
+                for (const auto &book : results)
+                {
                     cout << "Found book: " << book.getTitle() << " by " << book.getAuthor() << endl;
                 }
             }
-        } else if (choice == 2) {
+        }
+        else if (choice == 2)
+        {
             string author;
             cout << "Enter the author's name: ";
             cin.ignore();
             getline(cin, author);
 
             vector<Book> results = library.searchByAuthor(author);
-            if (results.empty()) {
+            if (results.empty())
+            {
                 cout << "No books found by the author \"" << author << "\"." << endl;
-            } else {
-                for (const auto& book : results) {
+            }
+            else
+            {
+                for (const auto &book : results)
+                {
                     cout << "Found book: " << book.getTitle() << " by " << book.getAuthor() << endl;
                 }
             }
-        } else if (choice == 3) {
+        }
+        else if (choice == 3)
+        {
             string title, author, isbn;
             bool available;
             cout << "Enter the book title: ";
@@ -70,18 +90,36 @@ int main() {
             Book newBook(title, author, isbn, available);
             library.addBook(newBook);
             cout << "Book added successfully!" << endl;
-        } else if (choice == 4) {
+        }
+        else if (choice == 4)
+        {
             string isbn;
             cout << "Enter the ISBN of the book to remove: ";
-            cin.ignore(); 
+            cin.ignore();
             getline(cin, isbn);
 
             library.removeBook(isbn);
             cout << "Book removed successfully, if it existed." << endl;
-        } else if (choice == 5) {
-            cout << "Exiting the Library Catalog. Goodbye!\n" << endl;
+        } 
+        else if (choice == 5) 
+        {
+            cout << "Listing all books in the library:\n";
+            vector<Book> allBooks = library.searchByTitle("");
+            for (const auto& book : allBooks) {
+                cout << "Title: " << book.getTitle()
+                     << ", Author: " << book.getAuthor()
+                     << ", ISBN: " << book.getISBN()
+                     << ", Available: " << (book.isAvailable() ? "Yes" : "No") << endl;
+            }
+        } 
+        else if (choice == 6)
+        {
+            cout << "Exiting the Library Catalog. Goodbye!\n"
+                 << endl;
             break;
-        } else {
+        }
+        else
+        {
             cout << "Invalid choice. Please try again." << endl;
         }
     }

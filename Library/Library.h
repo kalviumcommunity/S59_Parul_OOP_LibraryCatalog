@@ -15,4 +15,6 @@ public:
     vector<Book> searchByTitle(const string& title) const;
 
     vector<Book> searchByAuthor(const string& title) const;
+
+    vector<Book> getAllBooks() const;
 };
