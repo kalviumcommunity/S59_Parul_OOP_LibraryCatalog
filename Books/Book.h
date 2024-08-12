@@ -18,5 +18,5 @@ public:
     string getISBN() const;
     bool isAvailable() const;
 
-    void setAvailability(bool avail);
+    Book& setAvailability(bool avail);
 };
