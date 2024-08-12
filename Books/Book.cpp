@@ -3,25 +3,30 @@
 
 using namespace std;
 
-Book::Book(string t, string a, string i, bool avail)  
-    : title(t), author(a), ISBN(i), available(avail) {}
+Book::Book(string t, string a, string i, bool avail) {
+    this->title = t;
+    this->author = a;
+    this->ISBN = i;
+    this->available = avail;
+}
 
 string Book::getTitle() const {
-    return title;
+    return this->title;
 }
 
 string Book::getAuthor() const {
-    return author;
+    return this->author;
 }
 
 string Book::getISBN() const {
-    return ISBN;
+    return this->ISBN;
 }
 
 bool Book::isAvailable() const {
-    return available;
+    return this->available;
 }
 
-void Book::setAvailability(bool avail){
-    available = avail;
+Book& Book::setAvailability(bool avail) {
+    this->available = avail;
+    return *this;
 }
