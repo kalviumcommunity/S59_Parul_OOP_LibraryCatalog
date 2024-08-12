@@ -18,6 +18,7 @@ void Library::removeBook(const string& ISBN){
 
 vector<Book> Library::searchByTitle(const string& title) const {
     vector<Book> foundBooks;
+    if (title == "") return books;
     for(const auto& book : books){
         if(book.getTitle() == title){
             foundBooks.push_back(book);
@@ -34,4 +35,8 @@ vector<Book> Library::searchByAuthor(const string& author) const {
         }
     }
     return foundBooks;
+}
+
+vector<Book> Library::getAllBooks() const { 
+    return books;
 }
