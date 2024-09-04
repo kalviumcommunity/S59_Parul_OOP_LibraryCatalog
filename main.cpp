@@ -8,15 +8,13 @@ int main()
 {
     Library library;
 
-    Book booksArray[] = {
-        Book("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false),
-        Book("You Can Sell", "Shiv Khera", "9788129116000", true),
-        Book("Atomic Habits", "James Clear", "9780735211292", true)
-    };
+    Book* book1 = new Book("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false);
+    Book* book2 = new Book("You Can Sell", "Shiv Khera", "9788129116000", true);
+    Book* book3 = new Book("Atomic Habits", "James Clear", "9780735211292", true);  
 
-    for (const auto &book : booksArray) {
-        library.addBook(book);
-    }
+    library.addBook(*book1);
+    library.addBook(*book2);
+    library.addBook(*book3);
 
     cout << "\nWelcome to the Library Catalog!" << endl;
 
@@ -87,8 +85,8 @@ int main()
             cout << "Is the book available? (1 for Yes, 0 for No): ";
             cin >> available;
 
-            Book newBook(title, author, isbn, available);
-            library.addBook(newBook);
+            Book* newBook = new Book(title, author, isbn, available);
+            library.addBook(*newBook);  
             cout << "Book added successfully!" << endl;
         }
         else if (choice == 4)
@@ -123,6 +121,10 @@ int main()
             cout << "Invalid choice. Please try again." << endl;
         }
     }
+
+    delete book1;
+    delete book2;
+    delete book3;
 
     return 0;
 }
