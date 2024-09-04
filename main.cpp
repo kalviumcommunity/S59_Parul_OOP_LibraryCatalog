@@ -26,7 +26,8 @@ int main()
         cout << "3. Add a new book" << endl;
         cout << "4. Remove a book by ISBN" << endl;
         cout << "5. Check all books in the library" << endl;
-        cout << "6. Exit" << endl;
+        cout << "6. Check total count of books in the library" << endl; 
+        cout << "7. Exit" << endl;
         cout << "\nPlease enter your choice (1-6): ";
         int choice;
         cin >> choice;
@@ -111,6 +112,10 @@ int main()
             }
         } 
         else if (choice == 6)
+        {
+            cout << "Total books in the library: " << Book::getTotalBooks() << endl;
+        }
+        else if (choice == 7)
         {
             cout << "Exiting the Library Catalog. Goodbye!\n"
                  << endl;

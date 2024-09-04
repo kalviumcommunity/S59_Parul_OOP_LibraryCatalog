@@ -3,11 +3,15 @@
 
 using namespace std;
 
+int Book::totalBooks = 0;
+
 Book::Book(string t, string a, string i, bool avail) {
     this->title = t;
     this->author = a;
     this->ISBN = i;
     this->available = avail;
+
+    totalBooks++;
 }
 
 string Book::getTitle() const {
@@ -29,4 +33,12 @@ bool Book::isAvailable() const {
 Book& Book::setAvailability(bool avail) {
     this->available = avail;
     return *this;
+}
+
+int Book::getTotalBooks() {
+    return totalBooks;
+}
+
+void Book::decrementTotalBooks() {
+    totalBooks--;
 }
