@@ -5,6 +5,10 @@ using namespace std;
 
 int Book::totalBooks = 0;
 
+Book::Book() : title("Unknown"), author("Unknown"), ISBN("Unknown"), available(false) {
+    totalBooks++;
+}
+
 Book::Book(string t, string a, string i, bool avail) {
     this->title = t;
     this->author = a;
@@ -13,6 +17,8 @@ Book::Book(string t, string a, string i, bool avail) {
 
     totalBooks++;
 }
+
+Book::~Book() {}
 
 string Book::getTitle() const {
     return this->title;

@@ -127,9 +127,5 @@ int main()
         }
     }
 
-    delete book1;
-    delete book2;
-    delete book3;
-
     return 0;
 }
