@@ -12,7 +12,9 @@ private:
     static int totalBooks;
 
 public:
+    Book();
     Book(string t, string a, string i, bool avail);
+    ~Book();
 
     string getTitle() const;
     string getAuthor() const;
