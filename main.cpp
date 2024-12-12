@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "./Books/Book.cpp"
 #include "./Library/Library.cpp"
+// #include "./Books/Genre.cpp"
 
 using namespace std;
 
@@ -8,13 +9,19 @@ int main()
 {
     Library library;
 
+    // Creating some initial books and adding them to the library
     Book* book1 = new Book("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false);
     Book* book2 = new Book("You Can Sell", "Shiv Khera", "9788129116000", true);
-    Book* book3 = new Book("Atomic Habits", "James Clear", "9780735211292", true);  
+    Book* book3 = new Book("Atomic Habits", "James Clear", "9780735211292", true);
+    Historical* book4 = new Historical("The Book Thief", "Markus Zusak", "978-0375842207", true, "Australia");
+    Mystery* book5 = new Mystery("The Girl with the Dragon Tattoo", "Stieg Larsson", "978-0307949486", true, "Sweden", "Crime Fiction");
 
+    // Adding books to the library
     library.addBook(*book1);
     library.addBook(*book2);
     library.addBook(*book3);
+    library.addBook(*book4);
+    library.addBook(*book5);
 
     cout << "\nWelcome to the Library Catalog!" << endl;
 
@@ -26,9 +33,10 @@ int main()
         cout << "3. Add a new book" << endl;
         cout << "4. Remove a book by ISBN" << endl;
         cout << "5. Check all books in the library" << endl;
-        cout << "6. Check total count of books in the library" << endl; 
-        cout << "7. Exit" << endl;
-        cout << "\nPlease enter your choice (1-6): ";
+        cout << "6. Check total count of books in the library" << endl;
+        cout << "7. Display details of Historical or Mystery books" << endl;
+        cout << "8. Exit" << endl;
+        cout << "\nPlease enter your choice (1-8): ";
         int choice;
         cin >> choice;
 
@@ -87,7 +95,7 @@ int main()
             cin >> available;
 
             Book* newBook = new Book(title, author, isbn, available);
-            library.addBook(*newBook);  
+            library.addBook(*newBook);
             cout << "Book added successfully!" << endl;
         }
         else if (choice == 4)
@@ -99,26 +107,40 @@ int main()
 
             library.removeBook(isbn);
             cout << "Book removed successfully, if it existed." << endl;
-        } 
-        else if (choice == 5) 
+        }
+        else if (choice == 5)
         {
             cout << "Listing all books in the library:\n";
             vector<Book> allBooks = library.searchByTitle("");
-            for (const auto& book : allBooks) {
+            for (const auto &book : allBooks)
+            {
                 cout << "Title: " << book.getTitle()
                      << ", Author: " << book.getAuthor()
                      << ", ISBN: " << book.getISBN()
                      << ", Available: " << (book.isAvailable() ? "Yes" : "No") << endl;
             }
-        } 
+        }
         else if (choice == 6)
         {
             cout << "Total books in the library: " << Book::getTotalBooks() << endl;
         }
         else if (choice == 7)
         {
-            cout << "Exiting the Library Catalog. Goodbye!\n"
-                 << endl;
+            // Display details of Historical and Mystery books
+            cout << "Displaying details of Historical books:\n";
+            cout << "Title: " << book4->getTitle()
+                 << ", Author: " << book4->getAuthor()
+                 << ", Country: " << book4->getCountry() << endl;
+
+            cout << "\nDisplaying details of Mystery books:\n";
+            cout << "Title: " << book5->getTitle()
+                 << ", Author: " << book5->getAuthor()
+                 << ", Country: " << book5->getCountry()
+                 << ", Type: " << book5->getType() << endl;
+        }
+        else if (choice == 8)
+        {
+            cout << "Exiting the Library Catalog. Goodbye!\n" << endl;
             break;
         }
         else
@@ -126,6 +148,13 @@ int main()
             cout << "Invalid choice. Please try again." << endl;
         }
     }
+
+    // Cleaning up dynamically allocated memory
+    delete book1;
+    delete book2;
+    delete book3;
+    delete book4;
+    delete book5;
 
     return 0;
 }

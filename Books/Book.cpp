@@ -48,3 +48,11 @@ int Book::getTotalBooks() {
 void Book::decrementTotalBook() {
     totalBooks--;
 }
+
+string Historical::getCountry() const {
+    return this->country;
+}
+
+string Mystery::getType() const {
+    return this->type;
+}
