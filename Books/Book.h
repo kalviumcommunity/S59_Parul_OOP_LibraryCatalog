@@ -2,10 +2,11 @@
 #define BOOK_H
 
 #include <string>
+#include <iostream>
 using namespace std;
 
 class Book {
-private:
+protected:
     string title;
     string author;
     string ISBN;
@@ -15,7 +16,7 @@ private:
 public:
     Book();
     Book(string t, string a, string i, bool avail);
-    ~Book();
+    virtual ~Book() { totalBooks--; }
 
     string getTitle() const;
     string getAuthor() const;
@@ -24,30 +25,32 @@ public:
     Book& setAvailability(bool avail);
 
     static int getTotalBooks();
-    static void decrementTotalBook();
+
+    virtual void displayBookInfo() const = 0; 
 };
 
-class Historical : public virtual Book {
+class Historical : public Book {
 private:
     string country;
 
 public:
-    Historical() : Book(), country("Unknown") {}
-    Historical(string t, string a, string i, bool avail, string country)
-        : Book(t, a, i, avail), country(country) {}
+    Historical();
+    Historical(string t, string a, string i, bool avail, string country);
 
     string getCountry() const;
+    void displayBookInfo() const override;
 };
 
-class Mystery : public virtual Book, public Historical {
+class Mystery : public Historical {
 private:
     string type;
 
 public:
-    Mystery(string t, string a, string i, bool avail, string country, string type)
-        : Book(t, a, i, avail), Historical(t, a, i, avail, country), type(type) {}
+    Mystery();
+    Mystery(string t, string a, string i, bool avail, string country, string type);
 
     string getType() const;
+    void displayBookInfo() const override;
 };
 
 #endif
