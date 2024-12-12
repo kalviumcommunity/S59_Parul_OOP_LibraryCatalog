@@ -1,56 +1,38 @@
 #ifndef BOOK_H
 #define BOOK_H
 
+#include <iostream>
 #include <string>
 #include <iostream>
 using namespace std;
 
-class Book {
+class IDisplayable {
+public:
+    virtual void displayBookInfo() const = 0; 
+};
+
+class Book : public IDisplayable {
 protected:
     string title;
     string author;
     string ISBN;
     bool available;
-    static int totalBooks;
 
 public:
-    Book();
-    Book(string t, string a, string i, bool avail);
-    virtual ~Book() { totalBooks--; }
+    Book(string t, string a, string i, bool avail = true)
+        : title(t), author(a), ISBN(i), available(avail) {}
 
-    string getTitle() const;
-    string getAuthor() const;
-    string getISBN() const;
-    bool isAvailable() const;
-    Book& setAvailability(bool avail);
+    string getTitle() const { return title; }
+    string getAuthor() const { return author; }
+    string getISBN() const { return ISBN; }
+    bool isAvailable() const { return available; }
 
-    static int getTotalBooks();
+    void displayBookInfo() const override {
+        cout << "Title: " << title << "\nAuthor: " << author
+             << "\nISBN: " << ISBN << "\nAvailable: " << (available ? "Yes" : "No") << endl;
+    }
 
-    virtual void displayBookInfo() const = 0; 
-};
-
-class Historical : public Book {
-private:
-    string country;
-
-public:
-    Historical();
-    Historical(string t, string a, string i, bool avail, string country);
-
-    string getCountry() const;
-    void displayBookInfo() const override;
-};
-
-class Mystery : public Historical {
-private:
-    string type;
-
-public:
-    Mystery();
-    Mystery(string t, string a, string i, bool avail, string country, string type);
-
-    string getType() const;
-    void displayBookInfo() const override;
+    virtual ~Book() = default; 
 };
 
 #endif

@@ -1,23 +1,40 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
-#include <bits/stdc++.h>
-#include "../Books/Book.h"
-
-using namespace std;
-using namespace std;
+#include <vector>
+#include <string>
+#include "../Books/InterfaceBookRepository.h"
 
 class Library {
 private:
-    vector<Book*> books;
+    IBookRepository* bookRepo;  
 
 public:
-    void addBook(Book* book);
-    void removeBook(const string& ISBN);
-    vector<Book*> searchByTitle(const string& title) const;
-    vector<Book*> searchByAuthor(const string& author) const;
-    vector<Book*> getAllBooks() const;
-    ~Library();
+    Library(IBookRepository* repo) : bookRepo(repo) {}
+
+    void addBook(Book* book) {
+        bookRepo->addBook(book);
+    }
+
+    void removeBook(const std::string& ISBN) {
+        bookRepo->removeBook(ISBN);
+    }
+
+    std::vector<Book*> searchByTitle(const std::string& title) {
+        return bookRepo->searchByTitle(title);
+    }
+
+    std::vector<Book*> searchByAuthor(const std::string& author) {
+        return bookRepo->searchByAuthor(author);
+    }
+
+    std::vector<Book*> getAllBooks() {
+        return bookRepo->getAllBooks();
+    }
+
+    ~Library() {
+        
+    }
 };
 
 #endif
