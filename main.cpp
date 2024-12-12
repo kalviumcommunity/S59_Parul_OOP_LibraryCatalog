@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include "./Books/Book.cpp"
 #include "./Library/Library.cpp"
-// #include "./Books/Genre.cpp"
 
 using namespace std;
 
@@ -9,14 +8,12 @@ int main()
 {
     Library library;
 
-    // Creating some initial books and adding them to the library
     Book* book1 = new Book("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false);
     Book* book2 = new Book("You Can Sell", "Shiv Khera", "9788129116000", true);
     Book* book3 = new Book("Atomic Habits", "James Clear", "9780735211292", true);
     Historical* book4 = new Historical("The Book Thief", "Markus Zusak", "978-0375842207", true, "Australia");
     Mystery* book5 = new Mystery("The Girl with the Dragon Tattoo", "Stieg Larsson", "978-0307949486", true, "Sweden", "Crime Fiction");
 
-    // Adding books to the library
     library.addBook(*book1);
     library.addBook(*book2);
     library.addBook(*book3);
@@ -126,7 +123,6 @@ int main()
         }
         else if (choice == 7)
         {
-            // Display details of Historical and Mystery books
             cout << "Displaying details of Historical books:\n";
             cout << "Title: " << book4->getTitle()
                  << ", Author: " << book4->getAuthor()
@@ -149,7 +145,6 @@ int main()
         }
     }
 
-    // Cleaning up dynamically allocated memory
     delete book1;
     delete book2;
     delete book3;

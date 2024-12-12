@@ -1,7 +1,4 @@
-#include <bits/stdc++.h>
-#include "./Book.h"
-
-using namespace std;
+#include "Book.h"
 
 int Book::totalBooks = 0;
 
@@ -9,35 +6,31 @@ Book::Book() : title("Unknown"), author("Unknown"), ISBN("Unknown"), available(f
     totalBooks++;
 }
 
-Book::Book(string t, string a, string i, bool avail) {
-    this->title = t;
-    this->author = a;
-    this->ISBN = i;
-    this->available = avail;
-
+Book::Book(string t, string a, string i, bool avail)
+    : title(t), author(a), ISBN(i), available(avail) {
     totalBooks++;
 }
 
 Book::~Book() {}
 
 string Book::getTitle() const {
-    return this->title;
+    return title;
 }
 
 string Book::getAuthor() const {
-    return this->author;
+    return author;
 }
 
 string Book::getISBN() const {
-    return this->ISBN;
+    return ISBN;
 }
 
 bool Book::isAvailable() const {
-    return this->available;
+    return available;
 }
 
 Book& Book::setAvailability(bool avail) {
-    this->available = avail;
+    available = avail;
     return *this;
 }
 
@@ -50,9 +43,9 @@ void Book::decrementTotalBook() {
 }
 
 string Historical::getCountry() const {
-    return this->country;
+    return country;
 }
 
 string Mystery::getType() const {
-    return this->type;
+    return type;
 }
