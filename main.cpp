@@ -1,29 +1,28 @@
-#include <bits/stdc++.h>
-#include "./Books/Book.cpp"
-#include "./Library/Library.cpp"
-
+#include <iostream>
+#include <vector>
+#include "./Books/Book.cpp" 
+#include "./Library/Library.cpp" 
 using namespace std;
 
 int main()
 {
     Library library;
 
-    Book* book1 = new Book("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false);
-    Book* book2 = new Book("You Can Sell", "Shiv Khera", "9788129116000", true);
-    Book* book3 = new Book("Atomic Habits", "James Clear", "9780735211292", true);
-    Historical* defBook1 = new Historical();
-    Historical* book4 = new Historical("The Book Thief", "Markus Zusak", "978-0375842207", true, "Australia");
-    Mystery* book5 = new Mystery("The Girl with the Dragon Tattoo", "Stieg Larsson", "978-0307949486", true, "Sweden", "Crime Fiction");
+    Book* book1 = new Historical("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false, "USA");
+    Book* book2 = new Historical("You Can Sell", "Shiv Khera", "9788129116000", true, "India");
+    Book* book3 = new Mystery("Atomic Habits", "James Clear", "9780735211292", true, "USA", "Self-Improvement");
+    Historical* defBook1 = new Historical(); 
+    Book* book4 = new Historical("The Book Thief", "Markus Zusak", "978-0375842207", true, "Australia");
+    Book* book5 = new Mystery("The Girl with the Dragon Tattoo", "Stieg Larsson", "978-0307949486", true, "Sweden", "Crime Fiction");
 
-    library.addBook(*book1);
-    library.addBook(*book2);
-    library.addBook(*book3);
-    library.addBook(*book4);
-    library.addBook(*book5);
+    library.addBook(book1);
+    library.addBook(book2);
+    library.addBook(book3);
+    library.addBook(book4);
+    library.addBook(book5);
 
     cout << "\nWelcome to the Library Catalog!" << endl;
-
-    cout << "Default Historical Book:" << ", Country: " << defBook1->getCountry() << endl;
+    cout << "Default Historical Book Country: " << defBook1->getCountry() << endl;
 
     while (true)
     {
@@ -37,6 +36,7 @@ int main()
         cout << "7. Display details of Historical or Mystery books" << endl;
         cout << "8. Exit" << endl;
         cout << "\nPlease enter your choice (1-8): ";
+        
         int choice;
         cin >> choice;
 
@@ -47,16 +47,16 @@ int main()
             cin.ignore();
             getline(cin, title);
 
-            vector<Book> results = library.searchByTitle(title);
+            vector<Book*> results = library.searchByTitle(title);
             if (results.empty())
             {
                 cout << "No books found with the title \"" << title << "\"." << endl;
             }
             else
             {
-                for (const auto &book : results)
+                for (const auto& book : results)
                 {
-                    cout << "Found the book: " << book.getTitle() << " by " << book.getAuthor() << endl;
+                    cout << "Found the book: " << book->getTitle() << " by " << book->getAuthor() << endl;
                 }
             }
         }
@@ -67,22 +67,22 @@ int main()
             cin.ignore();
             getline(cin, author);
 
-            vector<Book> results = library.searchByAuthor(author);
+            vector<Book*> results = library.searchByAuthor(author);
             if (results.empty())
             {
                 cout << "No books found by the author \"" << author << "\"." << endl;
             }
             else
             {
-                for (const auto &book : results)
+                for (const auto& book : results)
                 {
-                    cout << "Found book: " << book.getTitle() << " by " << book.getAuthor() << endl;
+                    cout << "Found book: " << book->getTitle() << " by " << book->getAuthor() << endl;
                 }
             }
         }
         else if (choice == 3)
         {
-            string title, author, isbn;
+            string title, author, isbn, country;
             bool available;
             cout << "Enter the book title: ";
             cin.ignore();
@@ -91,11 +91,13 @@ int main()
             getline(cin, author);
             cout << "Enter the ISBN: ";
             getline(cin, isbn);
+            cout << "Enter the country: ";
+            getline(cin, country);
             cout << "Is the book available? (1 for Yes, 0 for No): ";
             cin >> available;
 
-            Book* newBook = new Book(title, author, isbn, available);
-            library.addBook(*newBook);
+            Book* newBook = new Historical(title, author, isbn, available, country);
+            library.addBook(newBook);
             cout << "Book added successfully!" << endl;
         }
         else if (choice == 4)
@@ -106,18 +108,14 @@ int main()
             getline(cin, isbn);
 
             library.removeBook(isbn);
-            cout << "Book removed successfully, if it existed." << endl;
         }
         else if (choice == 5)
         {
             cout << "Listing all books in the library:\n";
-            vector<Book> allBooks = library.searchByTitle("");
-            for (const auto &book : allBooks)
+            vector<Book*> allBooks = library.getAllBooks();
+            for (const auto& book : allBooks)
             {
-                cout << "Title: " << book.getTitle()
-                     << ", Author: " << book.getAuthor()
-                     << ", ISBN: " << book.getISBN()
-                     << ", Available: " << (book.isAvailable() ? "Yes" : "No") << endl;
+                book->displayBookInfo();
             }
         }
         else if (choice == 6)
@@ -127,15 +125,10 @@ int main()
         else if (choice == 7)
         {
             cout << "Displaying details of Historical books:\n";
-            cout << "Title: " << book4->getTitle()
-                 << ", Author: " << book4->getAuthor()
-                 << ", Country: " << book4->getCountry() << endl;
+            book4->displayBookInfo();
 
             cout << "\nDisplaying details of Mystery books:\n";
-            cout << "Title: " << book5->getTitle()
-                 << ", Author: " << book5->getAuthor()
-                 << ", Country: " << book5->getCountry()
-                 << ", Type: " << book5->getType() << endl;
+            book5->displayBookInfo();
         }
         else if (choice == 8)
         {
@@ -153,6 +146,7 @@ int main()
     delete book3;
     delete book4;
     delete book5;
+    delete defBook1;
 
     return 0;
 }
