@@ -32,6 +32,7 @@ private:
     string country;
 
 public:
+    Historical() : Book(), country("Unknown") {}
     Historical(string t, string a, string i, bool avail, string country)
         : Book(t, a, i, avail), country(country) {}
 

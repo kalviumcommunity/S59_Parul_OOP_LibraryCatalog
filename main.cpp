@@ -11,6 +11,7 @@ int main()
     Book* book1 = new Book("IT ENDS WITH US FOREVER", "Colleen Hoover", "978-1-5011-1036-8", false);
     Book* book2 = new Book("You Can Sell", "Shiv Khera", "9788129116000", true);
     Book* book3 = new Book("Atomic Habits", "James Clear", "9780735211292", true);
+    Historical* defBook1 = new Historical();
     Historical* book4 = new Historical("The Book Thief", "Markus Zusak", "978-0375842207", true, "Australia");
     Mystery* book5 = new Mystery("The Girl with the Dragon Tattoo", "Stieg Larsson", "978-0307949486", true, "Sweden", "Crime Fiction");
 
@@ -21,6 +22,8 @@ int main()
     library.addBook(*book5);
 
     cout << "\nWelcome to the Library Catalog!" << endl;
+
+    cout << "Default Historical Book:" << ", Country: " << defBook1->getCountry() << endl;
 
     while (true)
     {
