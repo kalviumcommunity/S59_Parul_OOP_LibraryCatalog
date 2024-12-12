@@ -48,7 +48,7 @@ int main()
             {
                 for (const auto &book : results)
                 {
-                    cout << "Found book: " << book.getTitle() << " by " << book.getAuthor() << endl;
+                    cout << "Found the book: " << book.getTitle() << " by " << book.getAuthor() << endl;
                 }
             }
         }
