@@ -1,53 +1,37 @@
 #ifndef BOOK_H
 #define BOOK_H
 
+#include <iostream>
 #include <string>
 using namespace std;
 
-class Book {
-private:
+class IDisplayable {
+public:
+    virtual void displayBookInfo() const = 0; 
+};
+
+class Book : public IDisplayable {
+protected:
     string title;
     string author;
     string ISBN;
     bool available;
-    static int totalBooks;
 
 public:
-    Book();
-    Book(string t, string a, string i, bool avail);
-    ~Book();
+    Book(string t, string a, string i, bool avail = true)
+        : title(t), author(a), ISBN(i), available(avail) {}
 
-    string getTitle() const;
-    string getAuthor() const;
-    string getISBN() const;
-    bool isAvailable() const;
-    Book& setAvailability(bool avail);
+    string getTitle() const { return title; }
+    string getAuthor() const { return author; }
+    string getISBN() const { return ISBN; }
+    bool isAvailable() const { return available; }
 
-    static int getTotalBooks();
-    static void decrementTotalBook();
-};
+    void displayBookInfo() const override {
+        cout << "Title: " << title << "\nAuthor: " << author
+             << "\nISBN: " << ISBN << "\nAvailable: " << (available ? "Yes" : "No") << endl;
+    }
 
-class Historical : public virtual Book {
-private:
-    string country;
-
-public:
-    Historical() : Book(), country("Unknown") {}
-    Historical(string t, string a, string i, bool avail, string country)
-        : Book(t, a, i, avail), country(country) {}
-
-    string getCountry() const;
-};
-
-class Mystery : public virtual Book, public Historical {
-private:
-    string type;
-
-public:
-    Mystery(string t, string a, string i, bool avail, string country, string type)
-        : Book(t, a, i, avail), Historical(t, a, i, avail, country), type(type) {}
-
-    string getType() const;
+    virtual ~Book() = default; 
 };
 
 #endif
